@@ -9,11 +9,13 @@ use Illuminate\Http\Request;
 class SocialiteController extends Controller
 {
     public function clientSpotify(){
-        return Socialite::driver('spotify')->redirect();
+        return Socialite::driver('spotify')
+        ->scopes(['playlist-modify-private', 'playlist-modify-public'])
+        ->redirect();
     }
     public function authSpotify( ){
         $res = Socialite::driver('spotify')->user();
-        $token = $res->token;
+        $token = $res->accessTokenResponseBody["access_token"];
         $track_uris = [
             'spotify:track:2m3ObD945KvpE5y9A1eUWm',  # Jump Then Fall (Taylor's Version)
             'spotify:track:4P9Q0GojKVXpRTJCaL3kyy',  # All of the Girls You Loved Before
