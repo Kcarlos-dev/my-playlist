@@ -3,7 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialiteController;
-use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\MusicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +19,11 @@ use Laravel\Socialite\Facades\Socialite;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/spotify',[SocialiteController::class,'clientSpotify']);
 
-Route::get('/spotify/callback',[SocialiteController::class, 'authSpotify']);
+Route::get('/music-genres',[MusicController::class,'musicGenres']);
+Route::get('/music-artist',[MusicController::class,'artist']);
+
+
+Route::get('/spotify',[SocialiteController::class,'clientSpotify'])->name('spotify');
+Route::get('/spotify/callback',[SocialiteController::class, 'authSpotify'])->name('spotify.callback');
+Route::get('/spotify/playlist',[SocialiteController::class, 'playlistSpotify'])->name('spotify.playlist');

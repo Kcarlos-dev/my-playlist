@@ -13,10 +13,25 @@ class SocialiteController extends Controller
         ->scopes(['playlist-modify-private', 'playlist-modify-public'])
         ->redirect();
     }
-    public function authSpotify( ){
+
+    public function authSpotify(){
         $res = Socialite::driver('spotify')->user();
-        $token = $res->accessTokenResponseBody["access_token"];
-        $track_uris = [
+        session([
+            "spotify_user" => [
+                "name"=>$res->name,
+                "user_id"=>$res->id,
+                "token"=>$res->accessTokenResponseBody["access_token"]
+            ]
+            ]);
+        return session("spotify_user");
+    }
+    public function playlistSpotify(Request $request){
+        $playlist = $request->input('playlist');
+        $musics = $request->input('musics');
+        if(strlen(trim($playlist)) <= 0 || strlen(trim($musics)) <= 0){
+            return response()->json(["res" => 'sem parametros']);
+        }
+        /*$track_uris = [
             'spotify:track:2m3ObD945KvpE5y9A1eUWm',  # Jump Then Fall (Taylor's Version)
             'spotify:track:4P9Q0GojKVXpRTJCaL3kyy',  # All of the Girls You Loved Before
             'spotify:track:1fzAuUVbzlhZ1lJAx9PtY6',  # Daylight
@@ -32,12 +47,17 @@ class SocialiteController extends Controller
             'spotify:track:2x0WlnmfG39ZuDmstl9xfX',  # End Game (feat. Ed Sheeran & Future)
             'spotify:track:4hqJ4bSlYJOXb6Z4SRmzxs',  # Long Live (Taylor's Version)
             'spotify:track:1ZY1PqizIl78geGM4xWlEA'   # Gorgeous
-        ];
-        $Spotify = new SpotifyService($token,$res->id,"Playlist automatica",$track_uris);
-        //return response()->json($res) ;
+        ];*/
+        $data = session("spotify_user");
+        if(empty($data)){
+            return response()->json(["token" => 'sem parametros']);
+        }
+        $Spotify = new SpotifyService($data["token"],$data["user_id"],$playlist,$musics);
         return $Spotify->createPlaylist();
     }
 
 
 }
 //http://127.0.0.1:8000/spotify
+
+
