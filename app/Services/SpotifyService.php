@@ -8,17 +8,15 @@ class SpotifyService
     protected $token;
     protected $user_id;
     protected $playlistName;
-    protected $trackUris = [];
 
-    public function __construct($token, $user_id, $playlistName, array $trackUris)
+    public function __construct($token, $user_id, $playlistName)
     {
         $this->token = $token;
         $this->user_id = $user_id;
         $this->playlistName = $playlistName;
-        $this->trackUris = $trackUris;
     }
 
-    public function createPlaylist()
+    public function createPlaylist($music)
     {
 
         $url = "https://api.spotify.com/v1/users/{$this->user_id}/playlists";
@@ -46,7 +44,7 @@ class SpotifyService
             'Authorization' => "Bearer {$this->token}",
             'Content-Type' => 'application/json'
         ])->post($addUrl, [
-            'uris' => $this->trackUris
+            'uris' => $music
         ]);
 
         if ($addTracksRes->successful()) {
@@ -54,6 +52,21 @@ class SpotifyService
         } else {
             return 'Erro ao adicionar músicas: ' . $addTracksRes->status() . "\n";
         }
+
+    }
+    public function ShowIdMusic($music){
+
+        $res = Http::withHeaders([
+            'Authorization' => "Bearer {$this->token}",
+        ])->get('https://api.spotify.com/v1/search', [
+            'q' => $music,
+            'type' => 'track',
+            'limit' => 1
+        ]);
+        $data = $res->json();
+        $id = $data['tracks']['items'][0]['id'];
+        $track = "spotify:track:$id";
+        return $track;
 
     }
 }
