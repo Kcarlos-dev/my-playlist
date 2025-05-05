@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\GeminiService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class MusicController extends Controller
 {
@@ -34,9 +36,8 @@ class MusicController extends Controller
         if (strlen(trim($artist)) > 20) {
             return response()->json(["res" => 'Nome muito grande']);
         }
-        $prompt = "Gere uma playlist com musicas do artista $artist, contendo apenas os nomes das músicas e os nomes dos artistas, no formato de um array JSON válido, onde cada item tem as chaves 'Nome' e 'Artista'.
-                        Exemplo de estrutura esperada:[{'nome': 'Nome da música', 'artista': 'Nome do artista'},...]O JSON deve estar bem formatado e pronto para uso em uma API (!!!COMECE DIRETO COM OBJETO NENHUMA PALAVARA!!!), Com pelo menos 10 ou 20 musicas. caso não encontre nenhum artista faça no formato:{'erro':'artista não encontrado'}";
-
+        $prompt = 'Gere uma playlist do artista' . $artist .', a resposta deve usar EXATAMENTE esse modelo [{"nome": "Nome da música", "artista": "Nome do artista"},...] escreva direto com [], deve conter pelo menos de 10 a 20 musicas caso não ache o arista gere um {"mensagem": "artista não encontrado"}';
+        log::info(session("musics"));
         session([
             "musics" => $gemini->generatePlaylist($prompt)
         ]);

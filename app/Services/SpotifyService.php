@@ -64,6 +64,7 @@ class SpotifyService
             'limit' => 1
         ]);
         $data = $res->json();
+
         $id = $data['tracks']['items'][0]['id'];
         $track = "spotify:track:$id";
         return $track;
