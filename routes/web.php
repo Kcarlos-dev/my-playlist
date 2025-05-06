@@ -26,4 +26,5 @@ Route::get('/music-artist',[MusicController::class,'artist']);
 
 Route::get('/spotify',[SocialiteController::class,'clientSpotify'])->name('spotify');
 Route::get('/spotify/callback',[SocialiteController::class, 'authSpotify'])->name('spotify.callback');
+Route::get('/spotify/user',[SocialiteController::class,'userSpotify'])->name('spotify.user');
 Route::get('/spotify/playlist',[SocialiteController::class, 'playlistSpotify'])->name('spotify.playlist');

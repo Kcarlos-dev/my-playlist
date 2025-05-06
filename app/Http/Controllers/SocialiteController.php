@@ -28,6 +28,10 @@ class SocialiteController extends Controller
                 "token" => $res->accessTokenResponseBody["access_token"]
             ]
         ]);
+        //session("spotify_user")
+        return redirect("http://127.0.0.1:8000/") ;
+    }
+    public function userSpotify(){
         return session("spotify_user");
     }
     public function playlistSpotify(Request $request)
