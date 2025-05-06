@@ -41,36 +41,14 @@ Este projeto é uma aplicação web desenvolvida com Laravel que permite aos usu
    ```bash
    cp .env.example .env
    ```
+6. **Configure as chaves de API** (veja a seção Configuração abaixo).
 
-6. **Gere a chave da aplicação**:
-   ```bash
-   php artisan key:generate
-   ```
-
-7. **Configure a conexão com o banco de dados**:
-   Edite o arquivo `.env` para incluir as credenciais do seu banco de dados, por exemplo:
-   ```
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=my_playlist
-   DB_USERNAME=root
-   DB_PASSWORD=
-   ```
-
-8. **Execute as migrações do banco de dados**:
-   ```bash
-   php artisan migrate
-   ```
-
-9. **Configure as chaves de API** (veja a seção Configuração abaixo).
-
-10. **Inicie o servidor de desenvolvimento**:
+7. **Inicie o servidor de desenvolvimento**:
     ```bash
     php artisan serve
     ```
 
-11. **Execute o servidor de assets** (em outro terminal):
+8. **Execute o servidor de assets** (em outro terminal):
     ```bash
     npm run dev
     ```
@@ -138,6 +116,7 @@ Contribuições são bem-vindas! Para contribuir:
 
 Por favor, relate quaisquer problemas ou sugestões na seção de Issues do repositório.
 
-## Licença
-
-A licença não está especificada no repositório. Entre em contato com o mantenedor para esclarecimentos.
+## MELHORIAS FUTURAS
+1. Criar tela de login/cadastro
+2. Ajustar frontend para dispositivos moveis
+3. Persistência de dados com Mysql
