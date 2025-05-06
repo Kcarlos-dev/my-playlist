@@ -38,7 +38,7 @@ class SocialiteController extends Controller
         }
         $musics = json_decode(session("musics"), true);
         $musicsNames = array_column($musics, 'nome');
-
+        //log::info($musicsNames);
         $data = session("spotify_user");
 
         if(empty($data)){
