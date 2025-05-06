@@ -2,6 +2,8 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
 
 class SpotifyService
 {
@@ -64,7 +66,7 @@ class SpotifyService
             'limit' => 1
         ]);
         $data = $res->json();
-
+        log::info($data);
         $id = $data['tracks']['items'][0]['id'];
         $track = "spotify:track:$id";
         return $track;
