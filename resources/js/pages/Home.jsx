@@ -155,7 +155,7 @@ export default function Home() {
             window.location.href = `${url}/spotify`
         }
         const myPlaylist = document.getElementById("NamePlaylist")
-        if(myPlaylist.value.length < 1){
+        if (myPlaylist.value.length < 1) {
             return alert("Escreva o nome da playlist")
         }
         setLoading(true)
@@ -165,6 +165,7 @@ export default function Home() {
                 alert(res.data)
             })
             .catch((err) => {
+                alert(`Erro de conexão, tente gerar novamente`)
                 console.log(err)
             })
             .finally(() => {
@@ -174,8 +175,12 @@ export default function Home() {
 
     return (
         <main className='container mx-auto '>
-
-            <h1 className='text-xl text-white py-5'>Crie sua playlist com IA</h1>
+            <nav className='flex justify-between'>
+                <h1 className='text-xl text-white py-5'>Crie sua playlist com IA</h1>
+                <button onClick={() => { LoginSpotify() }} className=" w-[10vw] h-[8vh] my-1 bg-lime-500 hover:bg-lime-400 text-white font-bold py-2 px-4 border-b-4 border-lime-700 hover:border-lime-500 rounded">
+                    {getSpotify == false ? "Spotify" : "Salvar playlist"}
+                </button>
+            </nav>
             <div className='w-[60vw] overflow-y-auto container mx-auto h-[80vh] bg-white rounded-md p-10'>
                 <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
@@ -254,9 +259,7 @@ export default function Home() {
                                         </div>
                                     )
                                 }
-                                <button onClick={() => { LoginSpotify() }} className="mx-2 w-[10vw] bg-lime-500 hover:bg-lime-400 text-white font-bold py-2 px-4 border-b-4 border-lime-700 hover:border-lime-500 rounded">
-                                    {getSpotify == false ? "Spotify" : "Salvar playlist"}
-                                </button>
+
                             </div>
                             <div className='bg-white p-5 rounded-full m-2'>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-15 text-slate-700">
